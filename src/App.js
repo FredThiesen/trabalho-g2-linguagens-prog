@@ -1,6 +1,6 @@
 import musk from "./assets/elon-musk-bw.png"
 import "./App.css"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import {
 	base64Computer,
 	base64Television,
@@ -8,6 +8,7 @@ import {
 	base64Headphone,
 	base64Fridge,
 } from "./mock"
+import fetchProductsRequest from "./request"
 
 const mockImages = [
 	base64Computer,
@@ -19,26 +20,30 @@ const mockImages = [
 
 function App() {
 	const [product, setProduct] = useState(null)
-	const handleFetchProduct = () => {
-		// fetch("https://api.github.com/users/elonmusk")
-		// 	.then((response) => response.json())
-		// 	.then((data) => setProduct(data))
-		setProduct({
-			image: base64Computer,
-		})
+	const [productList, setProductList] = useState(null)
+	const [isLoading, setIsLoading] = useState(false)
+	const handleFetchProduct = async () => {
+		setIsLoading(true)
+		const res = await fetchProductsRequest()
+		setProductList(res)
+		setProduct(res[0])
+		setIsLoading(false)
 	}
+
+	useEffect(() => {
+		console.log("productList", productList)
+	}, [productList])
+
 	const handleNextProduct = () => {
 		// rotate through mockImages
-		const index = mockImages.indexOf(product.image)
+		const index = productList.indexOf(product)
 		let nextIndex = index + 1
 
-		if (nextIndex > mockImages.length - 1) {
+		if (nextIndex > productList.length - 1) {
 			nextIndex = 0
 		}
-		const nextImage = mockImages[nextIndex]
-		setProduct({
-			image: nextImage,
-		})
+		const nextProduct = productList[nextIndex]
+		setProduct(nextProduct)
 
 		// const nextImage = mockImages.filter(
 		// 	(image) => image !== product.image[0]
@@ -53,12 +58,23 @@ function App() {
 					<button onClick={handleFetchProduct}>Buscar Produto</button>
 				</div>
 				<div className="App-product-container">
-					{product && (
+					{isLoading && <div className={"loading"} />}
+					{productList && (
 						<div className="Product-container">
-							<img src={product.image} />
-							<button onClick={handleNextProduct}>
-								Próximo produto
-							</button>
+							<div className={"Product-column"}>
+								{/* <img src={product.image} /> */}
+								<button onClick={handleNextProduct}>
+									Próximo produto
+								</button>
+							</div>
+							{product && (
+								<div className={"Product-column"}>
+									Produto: {product.name}
+									<br />
+									Preço: R$ {product.price}
+									<br />
+								</div>
+							)}
 						</div>
 					)}
 				</div>

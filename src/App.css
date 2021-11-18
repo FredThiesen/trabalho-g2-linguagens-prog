@@ -41,17 +41,26 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: row;
 }
 
 .Product-container {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
 	justify-content: space-evenly;
 	height: 80%;
 	width: 40vw;
 	border: rgba(42, 31, 221, 1) 1.5px solid;
 	border-radius: 10px;
+}
+.Product-column {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	height: 100%;
+	width: 50%;
 }
 
 .App-link {
@@ -63,6 +72,31 @@
 		transform: rotate(0deg);
 	}
 	to {
+		transform: rotate(360deg);
+	}
+}
+
+.loading {
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+}
+.loading:after {
+	content: " ";
+	display: block;
+	width: 64px;
+	height: 64px;
+	margin: 8px;
+	border-radius: 50%;
+	border: 6px solid #fff;
+	border-color: #fff transparent #fff transparent;
+	animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
 		transform: rotate(360deg);
 	}
 }
