@@ -1,5 +1,5 @@
 export default async function fetchProductsRequest() {
-	const response = await fetch(`http://trab-g2.herokuapp.com/products`, {
+	const response = await fetch(`https://trab-g2.herokuapp.com/products`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
