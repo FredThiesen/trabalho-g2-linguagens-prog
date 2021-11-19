@@ -55,14 +55,20 @@ function App() {
 			<header className="App-header">
 				<div className="App-top-container">
 					<img src={musk} className="App-logo" alt="logo" />
-					<button onClick={handleFetchProduct}>Buscar Produto</button>
+					<button onClick={handleFetchProduct}>
+						Buscar Produtos
+					</button>
 				</div>
 				<div className="App-product-container">
 					{isLoading && <div className={"loading"} />}
 					{productList && (
 						<div className="Product-container">
 							<div className={"Product-column"}>
-								{/* <img src={product.image} /> */}
+								<img
+									src={
+										"data:image/png;base64," + product.photo
+									}
+								/>
 								<button onClick={handleNextProduct}>
 									Próximo produto
 								</button>
