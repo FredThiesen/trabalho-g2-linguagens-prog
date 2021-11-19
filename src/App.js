@@ -1,22 +1,7 @@
 import musk from "./assets/elon-musk-bw.png"
 import "./App.css"
 import React, { useState, useEffect } from "react"
-import {
-	base64Computer,
-	base64Television,
-	base64Oven,
-	base64Headphone,
-	base64Fridge,
-} from "./mock"
 import fetchProductsRequest from "./request"
-
-const mockImages = [
-	base64Computer,
-	base64Television,
-	base64Oven,
-	base64Headphone,
-	base64Fridge,
-]
 
 function App() {
 	const [product, setProduct] = useState(null)
@@ -44,11 +29,6 @@ function App() {
 		}
 		const nextProduct = productList[nextIndex]
 		setProduct(nextProduct)
-
-		// const nextImage = mockImages.filter(
-		// 	(image) => image !== product.image[0]
-		// )
-		// setProduct({ image: nextImage })
 	}
 	return (
 		<div className="App">
