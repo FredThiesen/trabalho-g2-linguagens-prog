@@ -10,9 +10,13 @@ function App() {
 	const handleFetchProduct = async () => {
 		setIsLoading(true)
 		const res = await fetchProductsRequest()
-		setProductList(res)
-		setProduct(res[0])
-		setIsLoading(false)
+			.then((res) => {
+				setProductList(res)
+				setProduct(res[0])
+				setIsLoading(false)
+			})
+			.catch((err) => console.log(err))
+		return res
 	}
 
 	useEffect(() => {
@@ -44,11 +48,15 @@ function App() {
 					{productList && (
 						<div className="Product-container">
 							<div className={"Product-column"}>
-								<img
-									src={
-										"data:image/png;base64," + product.photo
-									}
-								/>
+								{product && (
+									<img
+										src={
+											"data:image/png;base64," +
+											product.photo
+										}
+										width="200px"
+									/>
+								)}
 								<button onClick={handleNextProduct}>
 									Próximo produto
 								</button>
